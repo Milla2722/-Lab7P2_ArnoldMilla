@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -31,6 +33,8 @@ public class Menu extends javax.swing.JFrame {
         jTree1 = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jm_clear_menu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -113,13 +117,20 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 470, 420));
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("CSVs");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane2.setViewportView(jTree1);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 180, 400));
 
         jMenu1.setText("File");
+
+        jMenuItem2.setText("New file");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("jMenuItem3");
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Window");
@@ -155,24 +166,29 @@ public class Menu extends javax.swing.JFrame {
         String comando = tf_comando_menu.getText();
         String [] tokens = comando.split(" ");
         
-        if(tokens[1].contains(".txt")){
-            if (tokens[0].equals("./create") && tokens[2].equals("-single")){
-                try {
-                    crearArchivo(tokens[1]);
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        if(!(tf_comando_menu.getText().isEmpty())){
+            if(tokens[1].contains(".txt")){
+                if (tokens[0].equals("./create") && tokens[2].equals("-single")){
+                    try {
+                        crearArchivo(tokens[1]);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "el formato del comando es incorrecto o no contiene -single");
                 }
             }
             else{
-                JOptionPane.showMessageDialog(this, "el formato del comando es incorrecto o no contiene -single");
+                JOptionPane.showMessageDialog(this, "El formato del archivos es incorrecto");
+            }
+            if(tokens[1].equals(".txt")){
+                if(tokens[0].equals("./load") && tokens[2].equals("-single")){
+                
+                }
             }
         }
-        else{
-            JOptionPane.showMessageDialog(this, "El formato del archivos es incorrecto");
-        }
-        if(tokens[1].equals(".txt")){
-            //if(tokens[0].equals(.))
-        }
+        
     }//GEN-LAST:event_bt_validcomando_menuMouseClicked
 
     
@@ -230,9 +246,17 @@ public class Menu extends javax.swing.JFrame {
             }
             
         }
+        
+        DefaultTreeModel modelT = (DefaultTreeModel) jTree1.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) modelT.getRoot();
+        root.add(new DefaultMutableTreeNode(archivo));
+        
         bw.flush();
         bw.close();
         fw.close();
+        
+        jTree1.setModel(modelT);
+        modelT.reload();
         
     }
     
@@ -244,6 +268,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
