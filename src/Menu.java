@@ -1,3 +1,13 @@
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class Menu extends javax.swing.JFrame {
 
     
@@ -13,8 +23,8 @@ public class Menu extends javax.swing.JFrame {
         pp_menutabla_menu = new javax.swing.JPopupMenu();
         mi_clearTabla_pp = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tf_comando_menu = new javax.swing.JTextField();
+        bt_validcomando_menu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -32,10 +42,15 @@ public class Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 670, 40));
+        jPanel1.add(tf_comando_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 670, 40));
 
-        jButton1.setText("Enter");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 13, -1, 30));
+        bt_validcomando_menu.setText("Enter");
+        bt_validcomando_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_validcomando_menuMouseClicked(evt);
+            }
+        });
+        jPanel1.add(bt_validcomando_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 13, -1, 30));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,6 +151,30 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bt_validcomando_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_validcomando_menuMouseClicked
+        String comando = tf_comando_menu.getText();
+        String [] tokens = comando.split(" ");
+        
+        if(tokens[1].contains(".txt")){
+            if (tokens[0].equals("./create") && tokens[2].equals("-single")){
+                try {
+                    crearArchivo(tokens[1]);
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "el formato del comando es incorrecto o no contiene -single");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "El formato del archivos es incorrecto");
+        }
+        if(tokens[1].equals(".txt")){
+            //if(tokens[0].equals(.))
+        }
+    }//GEN-LAST:event_bt_validcomando_menuMouseClicked
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -167,10 +206,39 @@ public class Menu extends javax.swing.JFrame {
                 new Menu().setVisible(true);
             }
         });
+        
+        
     }
 
+    public void crearArchivo(String comand) throws IOException{     
+        archivo = new File(comand);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        FileWriter fw = new FileWriter("./" + comand);
+        BufferedWriter bw = new BufferedWriter(fw);
+        
+
+        
+        for (int cont = 0; cont < model.getRowCount(); cont++) {
+            if(!(model.getValueAt(cont, 0) == null)){
+                bw.write(model.getValueAt(cont, 0) + ",");
+                bw.write(model.getValueAt(cont, 1) + ",");
+                bw.write(model.getValueAt(cont, 2) + ",");
+                bw.write(model.getValueAt(cont, 3) + ",");
+                bw.write(model.getValueAt(cont, 4) + ",");
+                bw.write(model.getValueAt(cont, 5) + ",");
+                bw.write("\n");
+            }
+            
+        }
+        bw.flush();
+        bw.close();
+        fw.close();
+        
+    }
+    
+    File archivo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bt_validcomando_menu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -180,10 +248,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTree jTree1;
     private javax.swing.JMenu jm_clear_menu;
     private javax.swing.JMenuItem mi_clearTabla_pp;
     private javax.swing.JPopupMenu pp_menutabla_menu;
+    private javax.swing.JTextField tf_comando_menu;
     // End of variables declaration//GEN-END:variables
 }
