@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -167,29 +168,33 @@ public class Menu extends javax.swing.JFrame {
         String [] tokens = comando.split(" ");
         
         if(!(tf_comando_menu.getText().isEmpty())){
-            if(tokens[1].contains(".txt")){
                 if (tokens[0].equals("./create") && tokens[2].equals("-single")){
-                    try {
-                        crearArchivo(tokens[1]);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                    if(tokens[1].contains(".txt")){
+                        try {
+                            crearArchivo(tokens[1]);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Formato de archivo no valido");
                     }
                 }
+                else if(tokens[0].equals("./load")){
+                    if(tokens[1].contains(".txt")){
+                        loadTabla(tokens[1]);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Formato de archivo no valido");
+                    }
+                }
+                else if(tokens[0].equals("./clear")){
+                    cleartabla();
+                }
+                    
+                
                 else{
-                    JOptionPane.showMessageDialog(this, "el formato del comando es incorrecto o no contiene -single");
-                }
-                if(tokens[0].equals("./load")){
-                    loadTabla(tokens[1]);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "El formato del archivos es incorrecto");
-            }
-                if(tokens[0].equals("./clear")){
-                    //cleartabla();
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "el formato del comando es incorrecto o no contiene -single");
+                    JOptionPane.showMessageDialog(this, "El formato del comando es incorrecto");
                 }
         }
         
@@ -264,27 +269,22 @@ public class Menu extends javax.swing.JFrame {
         
     }
     
-    public void loadTabla(String path){
-        
-    }
     
-    /*public void cleartabla(){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        
-        for (int cont = 0; cont < model.getRowCount(); cont++) {
-            if(!(model.getValueAt(cont, 0) == null)){
-                model.removeRow(cont);
-            }
-            else{
-                break;
-            }
-        }
+    public void cleartabla(){
+        Object [] row = {null,null,null,null,null,null};
+        DefaultTableModel model = new DefaultTableModel();
+        model.addRow(row);
+        model.addRow(row);
+        model.addRow(row);
+        model.addRow(row);
         jTable1.setModel(model);
-    }*/
+    }
     
-    public void cargartabla(){
+    public void loadTabla(String name){
+        ArrayList<Producto> productos = new ArrayList();
         
     }
+    
     
     File archivo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
