@@ -178,15 +178,19 @@ public class Menu extends javax.swing.JFrame {
                 else{
                     JOptionPane.showMessageDialog(this, "el formato del comando es incorrecto o no contiene -single");
                 }
+                if(tokens[0].equals("./load")){
+                    loadTabla(tokens[1]);
+                }
             }
             else{
                 JOptionPane.showMessageDialog(this, "El formato del archivos es incorrecto");
             }
-            if(tokens[1].equals(".txt")){
-                if(tokens[0].equals("./load") && tokens[2].equals("-single")){
-                
+                if(tokens[0].equals("./clear")){
+                    //cleartabla();
                 }
-            }
+                else{
+                    JOptionPane.showMessageDialog(this, "el formato del comando es incorrecto o no contiene -single");
+                }
         }
         
     }//GEN-LAST:event_bt_validcomando_menuMouseClicked
@@ -257,6 +261,28 @@ public class Menu extends javax.swing.JFrame {
         
         jTree1.setModel(modelT);
         modelT.reload();
+        
+    }
+    
+    public void loadTabla(String path){
+        
+    }
+    
+    /*public void cleartabla(){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        for (int cont = 0; cont < model.getRowCount(); cont++) {
+            if(!(model.getValueAt(cont, 0) == null)){
+                model.removeRow(cont);
+            }
+            else{
+                break;
+            }
+        }
+        jTable1.setModel(model);
+    }*/
+    
+    public void cargartabla(){
         
     }
     
