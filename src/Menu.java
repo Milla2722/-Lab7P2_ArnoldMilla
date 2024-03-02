@@ -30,6 +30,9 @@ public class Menu extends javax.swing.JFrame {
 
         pp_menutabla_menu = new javax.swing.JPopupMenu();
         mi_clearTabla_pp = new javax.swing.JMenuItem();
+        pp_tree_menu = new javax.swing.JPopupMenu();
+        mi_loadFile_pp = new javax.swing.JMenuItem();
+        mi_Refresh_pp = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         tf_comando_menu = new javax.swing.JTextField();
         bt_validcomando_menu = new javax.swing.JButton();
@@ -57,6 +60,12 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         pp_menutabla_menu.add(mi_clearTabla_pp);
+
+        mi_loadFile_pp.setText("jMenuItem6");
+        pp_tree_menu.add(mi_loadFile_pp);
+
+        mi_Refresh_pp.setText("jMenuItem7");
+        pp_tree_menu.add(mi_Refresh_pp);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +140,11 @@ public class Menu extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("CSVs");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTree1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTree1);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 180, 400));
@@ -180,6 +194,11 @@ public class Menu extends javax.swing.JFrame {
         jMenu3.setText("Help");
 
         mi_products_menu.setText("Product");
+        mi_products_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_products_menuActionPerformed(evt);
+            }
+        });
         jMenu3.add(mi_products_menu);
 
         mi_commands_menu.setText("Commands");
@@ -307,6 +326,16 @@ public class Menu extends javax.swing.JFrame {
         tf_comando_menu.setText("");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void mi_products_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_products_menuActionPerformed
+        JOptionPane.showMessageDialog(this, "El producto tiene: \n id que es la identificacion del producto \n bin un numero \naisle numero del pasillo donde se guarda el producto del 1 al 3 \nname que es el nombre del producto \ncategoria que es la categoria en la que esta el producto \nprice que es el valor del producto");
+    }//GEN-LAST:event_mi_products_menuActionPerformed
+
+    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+        if(evt.getButton() == MouseEvent.BUTTON3){
+            pp_tree_menu.show(this, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jTree1MouseClicked
+
     
     
     public static void main(String args[]) {
@@ -431,10 +460,13 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTree jTree1;
     private javax.swing.JMenu jm_clear_menu;
+    private javax.swing.JMenuItem mi_Refresh_pp;
     private javax.swing.JMenuItem mi_clearTabla_pp;
     private javax.swing.JMenuItem mi_commands_menu;
+    private javax.swing.JMenuItem mi_loadFile_pp;
     private javax.swing.JMenuItem mi_products_menu;
     private javax.swing.JPopupMenu pp_menutabla_menu;
+    private javax.swing.JPopupMenu pp_tree_menu;
     private javax.swing.JTextField tf_comando_menu;
     // End of variables declaration//GEN-END:variables
 }
