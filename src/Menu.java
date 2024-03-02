@@ -1,9 +1,13 @@
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -103,17 +107,9 @@ public class Menu extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "name", "category", "price", "aisle", "bin"
+                "id", "bin", "aisle", "name", "categoria", "price"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 470, 420));
@@ -127,9 +123,19 @@ public class Menu extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuItem2.setText("New file");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Import");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -182,7 +188,11 @@ public class Menu extends javax.swing.JFrame {
                 }
                 else if(tokens[0].equals("./load")){
                     if(tokens[1].contains(".txt")){
-                        loadTabla(tokens[1]);
+                        try {
+                            loadTabla(tokens[1]);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                     else{
                         JOptionPane.showMessageDialog(this, "Formato de archivo no valido");
@@ -199,6 +209,46 @@ public class Menu extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bt_validcomando_menuMouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        String comando = tf_comando_menu.getText();
+        String [] tokens = comando.split(" ");
+        
+        if(!(tf_comando_menu.getText().isEmpty())){
+                if (tokens[0].equals("./create") && tokens[2].equals("-single")){
+                    if(tokens[1].contains(".txt")){
+                        try {
+                            crearArchivo(tokens[1]);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Formato de archivo no valido");
+                    }
+                }
+        }        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        String comando = tf_comando_menu.getText();
+        String [] tokens = comando.split(" ");
+        
+        if(!(tf_comando_menu.getText().isEmpty())){
+                if (tokens[0].equals("./load")){
+                    if(tokens[1].contains(".txt")){
+                        try {
+                            loadTabla(tokens[1]);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Formato de archivo no valido");
+                    }
+                }
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     
     public static void main(String args[]) {
@@ -280,12 +330,27 @@ public class Menu extends javax.swing.JFrame {
         jTable1.setModel(model);
     }
     
-    public void loadTabla(String name){
-        ArrayList<Producto> productos = new ArrayList();
-        
+    public void loadTabla(String name) throws FileNotFoundException, IOException{
+        archivo = new File("./" + name);
+        Scanner sc = null;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        if(archivo.exists()){
+            try {
+                sc = new Scanner(archivo);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    Object[] producto = linea.split(",");
+                    model.addRow(producto);
+                }
+                jTable1.setModel(model);  
+            } catch (Exception e) {
+            }                 
+                sc.close();
+            }     
     }
     
-    
+    ArrayList<Producto> productos = new ArrayList();
     File archivo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_validcomando_menu;
