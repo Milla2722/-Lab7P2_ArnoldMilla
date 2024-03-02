@@ -26,12 +26,13 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="mi_loadFile_pp">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem6"/>
+            <Property name="text" type="java.lang.String" value="Load File"/>
           </Properties>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="mi_Refresh_pp">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem7"/>
+            <Property name="text" type="java.lang.String" value="Refresh Trees"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </MenuItem>
       </SubComponents>

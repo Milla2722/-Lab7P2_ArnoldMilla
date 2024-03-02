@@ -61,10 +61,11 @@ public class Menu extends javax.swing.JFrame {
         });
         pp_menutabla_menu.add(mi_clearTabla_pp);
 
-        mi_loadFile_pp.setText("jMenuItem6");
+        mi_loadFile_pp.setText("Load File");
         pp_tree_menu.add(mi_loadFile_pp);
 
-        mi_Refresh_pp.setText("jMenuItem7");
+        mi_Refresh_pp.setText("Refresh Trees");
+        mi_Refresh_pp.setToolTipText("");
         pp_tree_menu.add(mi_Refresh_pp);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -372,10 +373,27 @@ public class Menu extends javax.swing.JFrame {
         
     }
 
+    public void refreshTree(){
+        DefaultTreeModel model = (DefaultTreeModel)jTree1.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        archivo = new File("./Productos");
+        try {
+            for(File temp: archivo.listFiles()){
+                if(temp.isFile()){
+                    DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(temp.getName());
+                    model.add(nodo);
+                }
+            }
+            model.reload();
+            jTree1.setModel(model);
+        } catch (Exception e) {
+        }
+    }
+    
     public void crearArchivo(String comand) throws IOException{     
         archivo = new File(comand);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        FileWriter fw = new FileWriter("./" + comand);
+        FileWriter fw = new FileWriter("./Productos/" + comand);
         BufferedWriter bw = new BufferedWriter(fw);
         
 
@@ -418,7 +436,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     public void loadTabla(String name) throws FileNotFoundException, IOException{
-        archivo = new File("./" + name);
+        archivo = new File("./Productos/" + name);
         Scanner sc = null;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
