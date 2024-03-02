@@ -43,10 +43,12 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jm_clear_menu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        mi_products_menu = new javax.swing.JMenuItem();
+        mi_commands_menu = new javax.swing.JMenuItem();
 
         mi_clearTabla_pp.setText("Clear tabla");
         mi_clearTabla_pp.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +158,18 @@ public class Menu extends javax.swing.JFrame {
         jMenu2.setText("Window");
 
         jm_clear_menu.setText("Clear");
+
+        jMenuItem4.setText("Clear command Line");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jm_clear_menu.add(jMenuItem4);
+
+        jMenuItem5.setText("Clear tree");
+        jm_clear_menu.add(jMenuItem5);
+
         jMenu2.add(jm_clear_menu);
 
         jMenuItem1.setText("Refresh Tree");
@@ -165,11 +179,16 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu3.setText("Help");
 
-        jMenuItem4.setText("Product");
-        jMenu3.add(jMenuItem4);
+        mi_products_menu.setText("Product");
+        jMenu3.add(mi_products_menu);
 
-        jMenuItem5.setText("Commands");
-        jMenu3.add(jMenuItem5);
+        mi_commands_menu.setText("Commands");
+        mi_commands_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_commands_menuActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mi_commands_menu);
 
         jMenuBar1.add(jMenu3);
 
@@ -279,6 +298,14 @@ public class Menu extends javax.swing.JFrame {
     private void mi_clearTabla_ppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_clearTabla_ppActionPerformed
         cleartabla();
     }//GEN-LAST:event_mi_clearTabla_ppActionPerformed
+
+    private void mi_commands_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_commands_menuActionPerformed
+        JOptionPane.showMessageDialog(this, "1. ./reload [nombrearchivo.txt] actualiza la tabla con el archivo\n2. ./create [nombrearchivo.txt] -single crea un archivo con los datos de la tabla\n3. ./clear [nombrearchivo.txt] elimina todos los datos de la tabla \n4. ./refresh [nombrearchivo] hace refresh de todo el arbol");
+    }//GEN-LAST:event_mi_commands_menuActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        tf_comando_menu.setText("");
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     
     
@@ -405,6 +432,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTree jTree1;
     private javax.swing.JMenu jm_clear_menu;
     private javax.swing.JMenuItem mi_clearTabla_pp;
+    private javax.swing.JMenuItem mi_commands_menu;
+    private javax.swing.JMenuItem mi_products_menu;
     private javax.swing.JPopupMenu pp_menutabla_menu;
     private javax.swing.JTextField tf_comando_menu;
     // End of variables declaration//GEN-END:variables
