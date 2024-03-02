@@ -1,4 +1,5 @@
 
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,8 +45,15 @@ public class Menu extends javax.swing.JFrame {
         jm_clear_menu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
-        mi_clearTabla_pp.setText("jMenuItem2");
+        mi_clearTabla_pp.setText("Clear tabla");
+        mi_clearTabla_pp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_clearTabla_ppActionPerformed(evt);
+            }
+        });
         pp_menutabla_menu.add(mi_clearTabla_pp);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -110,6 +118,11 @@ public class Menu extends javax.swing.JFrame {
                 "id", "bin", "aisle", "name", "categoria", "price"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 470, 420));
@@ -151,6 +164,13 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Help");
+
+        jMenuItem4.setText("Product");
+        jMenu3.add(jMenuItem4);
+
+        jMenuItem5.setText("Commands");
+        jMenu3.add(jMenuItem5);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -250,6 +270,17 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if(evt.getButton() == MouseEvent.BUTTON3){
+            pp_menutabla_menu.show(this, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void mi_clearTabla_ppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_clearTabla_ppActionPerformed
+        cleartabla();
+    }//GEN-LAST:event_mi_clearTabla_ppActionPerformed
+
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -350,6 +381,10 @@ public class Menu extends javax.swing.JFrame {
             }     
     }
     
+    public void refresh(){
+        
+    }
+    
     ArrayList<Producto> productos = new ArrayList();
     File archivo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -361,6 +396,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
